@@ -54,6 +54,10 @@ namespace P2EyeRIS
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            // Enable access to static files (css, js, images) in wwwroot  
+            app.UseStaticFiles(); 
+
+            
         }
     }
 }
