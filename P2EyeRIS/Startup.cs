@@ -57,12 +57,7 @@ namespace P2EyeRIS
             // Enable access to static files (css, js, images) in wwwroot  
             app.UseStaticFiles(); 
 
-            // Define the default route of MVC
-            app.UseMvc(routes => {      
-                routes.MapRoute(      
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");   
-            });
+            
         }
     }
 }

@@ -18,8 +18,28 @@ namespace P2EyeRIS.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult StaffLogin(IFormCollection formData)
+        {             // Read inputs from textboxes             // Email address converted to lowercase     
+            string loginID = formData["username"].ToString().ToLower();            
+            string password = formData["password"].ToString(); 
 
-        public IActionResult Privacy()
+            if (loginID == "fuckboiroy" && password == "lmao")
+            {                 // Redirect user to the "LecturerMain" view through an action         
+                return RedirectToAction("LecturerMain");         
+            }
+            else
+            {          
+                // Redirect user back to the index view through an action      
+
+                return RedirectToAction("Index");             }    
+        } 
+
+                public ActionResult LecturerMain() { 
+                    return View();
+                }
+
+                public IActionResult Privacy()
         {
             return View();
         }
