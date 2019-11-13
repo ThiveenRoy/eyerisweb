@@ -25,16 +25,15 @@ namespace P2EyeRIS.Controllers
             // Read inputs from textboxes   
             // username converted to lowercase     
             string loginID = formData["username"].ToString().ToLower();            
-            string password = formData["password"].ToString(); 
-
+            string password = formData["password"].ToString();
             if (loginID == "fuckboiroy" && password == "lmao")
             {                 // Redirect user to the "LecturerMain" view through an action         
                 return RedirectToAction("LecturerMain");         
             }
             else
-            {          
+            {
                 // Redirect user back to the index view through an action      
-
+                TempData["gay"] = "Bruh hint : username: fuckboyroi pw: lmao";
                 return RedirectToAction("Index");             }    
         } 
 
