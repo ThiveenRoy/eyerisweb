@@ -16,6 +16,7 @@ namespace P2EyeRIS.Controllers
         public IActionResult Index()
         {
             return View();
+            //insert login verification
         }
 
         public IActionResult Privacy()
