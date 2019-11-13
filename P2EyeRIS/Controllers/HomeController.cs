@@ -20,7 +20,9 @@ namespace P2EyeRIS.Controllers
         }
         [HttpPost]
         public ActionResult StaffLogin(IFormCollection formData)
-        {             // Read inputs from textboxes             // Email address converted to lowercase     
+        {            
+            // Read inputs from textboxes   
+            // username converted to lowercase     
             string loginID = formData["username"].ToString().ToLower();            
             string password = formData["password"].ToString(); 
 
