@@ -17,6 +17,7 @@ namespace P2EyeRIS.Controllers
         public IActionResult Index()
         {
             return View();
+            //insert login verification
         }
         [HttpPost]
         public ActionResult StaffLogin(IFormCollection formData)
