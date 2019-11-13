@@ -23,6 +23,8 @@ namespace P2EyeRIS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Make MVC service available to the app
+            services.AddMvc(); 
             services.AddControllersWithViews();
         }
 
