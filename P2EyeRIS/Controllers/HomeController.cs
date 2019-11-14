@@ -41,7 +41,7 @@ namespace P2EyeRIS.Controllers
         }
 
         //Below is a test for chart
-        public ActionResult TestChart()
+        public ActionResult Chart()
         {
             return View();
         }

@@ -31,9 +31,9 @@
             <!-- Table head -->
             <thead>
                 <tr>
-                    <th>Name</th>
-                    
                     <th>ID</th>
+                    
+                    <th>Name</th>
 
                 </tr>
             </thead>
@@ -74,9 +74,8 @@
                 //var date = data.feed.entry[i]['gsx$_cpzh4']['$t'];
                 var id = data.feed.entry[i]['gsx$_ckd7g']['$t'];
 
-
-                document.getElementById('demo').innerHTML += ('<tr>' + '<td>' + id + '</td>'  + '<td>' + name + '</td>' + '</tr>');
-
+                document.getElementById('demo').innerHTML += ('<tr>' + '<td>' + id + '</td>' + '<td>' + '<u>' + '<a href="Chart">' + name + '</a>' + '</u>' + '</td>' + '</tr>');
+                //change future code from href stuff to controller stuff, make sure it passes name or id through to the next page
             }
         });
        
