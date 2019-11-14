@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using P2EyeRIS.Models;
-using Microsoft.AspNetCore.Http;
 
 namespace P2EyeRIS.Controllers
 {
@@ -19,32 +12,43 @@ namespace P2EyeRIS.Controllers
 
         [HttpPost]
         public ActionResult StaffLogin(IFormCollection formData)
-        {            
-            // Read inputs from textboxes   
-            // username converted to lowercase     
-            string loginID = formData["username"].ToString().ToLower();            
-            string password = formData["password"].ToString(); 
+        {
+            // Read inputs from textboxes
+            // username converted to lowercase
+            string loginID = formData["username"].ToString().ToLower();
+            string password = formData["password"].ToString();
 
             if (loginID == "user" && password == "password")
-            {                 // Redirect user to the "LecturerMain" view through an action         
-                return RedirectToAction("LecturerMain");         
+            {                 // Redirect user to the "LecturerMain" view through an action
+                return RedirectToAction("LecturerMain");
+            }
+            //testing>>>>>
+            else if (loginID == "no" && password == "no")
+            {
+                return RedirectToAction("TestChart");
             }
             else
-            {          
-                // Redirect user back to the index view through an action      
+            {
+                // Redirect user back to the index view through an action
 
-                return RedirectToAction("Index");             }    
-        } 
+                return RedirectToAction("Index");
+            }
+        }
 
-                public ActionResult LecturerMain() { 
-                    return View();
-                }
-
-                public IActionResult Privacy()
+        public ActionResult LecturerMain()
         {
             return View();
         }
 
-        
+        //Below is a test for chart
+        public ActionResult TestChart()
+        {
+            return View();
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
     }
 }
