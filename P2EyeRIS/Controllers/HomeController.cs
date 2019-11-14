@@ -12,13 +12,11 @@ namespace P2EyeRIS.Controllers
 {
     public class HomeController : Controller
     {
-        
-
         public IActionResult Index()
         {
             return View();
-            //insert login verification
         }
+
         [HttpPost]
         public ActionResult StaffLogin(IFormCollection formData)
         {            
@@ -27,7 +25,7 @@ namespace P2EyeRIS.Controllers
             string loginID = formData["username"].ToString().ToLower();            
             string password = formData["password"].ToString(); 
 
-            if (loginID == "fuckboiroy" && password == "lmao")
+            if (loginID == "user" && password == "password")
             {                 // Redirect user to the "LecturerMain" view through an action         
                 return RedirectToAction("LecturerMain");         
             }
