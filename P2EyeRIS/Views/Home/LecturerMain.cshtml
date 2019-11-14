@@ -22,7 +22,7 @@
 </head>
 
 <body>
-    <div class="container text-center my-4">
+    <div class="container text-center my-3">
 
 
 
@@ -32,7 +32,8 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Date</th>
+                    
+                    <th>ID</th>
 
                 </tr>
             </thead>
@@ -64,18 +65,21 @@
         $.getJSON("https://spreadsheets.google.com/feeds/list/1O7RMsXpuGPbAz5cmwwSlkKTIs3Ip7wOuymLa2rvqrSs/1/public/values?alt=json", function (data) {
 
             var sheetData = data.feed.entry;
+            console.log(data.feed.entry);
 
-            var i;
-            for (i = 2; i < sheetData.length; i++) {
+            var i ;
+            for (i = 2 ; i < sheetData.length ; i++) {
 
                 var name = data.feed.entry[i]['gsx$_cn6ca']['$t'];
-                var date = data.feed.entry[i]['gsx$_cpzh4']['$t'];
+                //var date = data.feed.entry[i]['gsx$_cpzh4']['$t'];
+                var id = data.feed.entry[i]['gsx$_ckd7g']['$t'];
 
 
-                document.getElementById('demo').innerHTML += ('<tr>' + '<td>' + name + '</td>' + '<td>' + date /*+ '</td>' + '<td>' + email + '</td>' + '</tr>'*/);
+                document.getElementById('demo').innerHTML += ('<tr>' + '<td>' + id + '</td>'  + '<td>' + name + '</td>' + '</tr>');
 
             }
         });
+       
     </script>
 </body>
 
