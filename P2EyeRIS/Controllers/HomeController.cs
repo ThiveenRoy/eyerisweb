@@ -33,7 +33,7 @@ namespace P2EyeRIS.Controllers
             else
             {
                 // Redirect user back to the index view through an action      
-                TempData["gay"] = "Bruh hint : username: fuckboyroi pw: lmao";
+               
                 return RedirectToAction("Index");             }    
         } 
 
