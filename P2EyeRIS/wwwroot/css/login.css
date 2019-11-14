@@ -4,9 +4,11 @@
     font-size: xx-large;
     font-family: 'Inconsolata', monospace;
 }
+
 body {
     background-color: #f1f0eb;
 }
+
 * {
     box-sizing: border-box
 }

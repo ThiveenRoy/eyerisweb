@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Test";
+}
+
+    <h1>Testing Charts from Chart.js</h1>
+<body>
+    <canvas id="myChart"></canvas>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'], //labels for x axis
+            datasets: [{
+                label: 'Attendance in %',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [100, 90, 95, 95, 90, 95, 85, 90] //actual dataset, which can be taken from the database or google sheets and calculated
+            }]
+        },
+
+        // Configuration options go here
+        options: {}
+    });
+</script>
