@@ -1,5 +1,3 @@
-using System;
-
 namespace P2EyeRIS.Models
 {
     public class ErrorViewModel

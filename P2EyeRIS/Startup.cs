@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,7 +19,7 @@ namespace P2EyeRIS
         public void ConfigureServices(IServiceCollection services)
         {
             // Make MVC service available to the app
-            services.AddMvc(); 
+            services.AddMvc();
             services.AddControllersWithViews();
         }
 
@@ -54,10 +49,8 @@ namespace P2EyeRIS
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-            // Enable access to static files (css, js, images) in wwwroot  
-            app.UseStaticFiles(); 
-
-            
+            // Enable access to static files (css, js, images) in wwwroot
+            app.UseStaticFiles();
         }
     }
 }
