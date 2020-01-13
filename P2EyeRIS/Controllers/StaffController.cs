@@ -18,7 +18,7 @@ namespace P2EyeRIS.Controllers
     public class StaffController : Controller
     {
         static string[] Scopes = { SheetsService.Scope.SpreadsheetsReadonly };
-        static string ApplicationName = "EyeRIS Dashboard";
+        static string ApplicationName = "Staff EyeRIS Dashboard";
 
         public async Task<ActionResult> Index()
         {
@@ -44,9 +44,11 @@ namespace P2EyeRIS.Controllers
             });
 
             String spreadsheetId = "1Ws-dLtYaGjHGwpgNEZHwHWK0X-4eFfEjB5JjS7JcTeI";
-            String range = "FSD_T01!A7:B12";
+            String moduleClass = "FSD_T01";
+            String listRange = "A7:B12";
+            String totalRange = string.Format("{0}!{1}", moduleClass, listRange);
             SpreadsheetsResource.ValuesResource.GetRequest request =
-                    service.Spreadsheets.Values.Get(spreadsheetId, range);
+                    service.Spreadsheets.Values.Get(spreadsheetId, totalRange);
 
             ValueRange response = request.Execute();
 
@@ -69,5 +71,12 @@ namespace P2EyeRIS.Controllers
                 return View(new List<Student>());
             }
         }
+
+        public void StudentProfile(string id)
+        {
+            //return student profile view provided their id and their attendance
+        }
+
+        
     }
 }
