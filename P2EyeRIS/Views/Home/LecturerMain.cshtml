@@ -24,7 +24,7 @@
 <body>
     <div class="container text-center my-3">
 
-
+        <form method="post" action="~/Staff/StudentList"></form>
 
         <!-- Table  -->
         <table class="table table bordered table-striped" id="testTable">
@@ -65,17 +65,19 @@
         $.getJSON("https://spreadsheets.google.com/feeds/list/1O7RMsXpuGPbAz5cmwwSlkKTIs3Ip7wOuymLa2rvqrSs/1/public/values?alt=json", function (data) {
 
             var sheetData = data.feed.entry;
-            console.log(data.feed.entry);
+            console.log(sheetData);
 
             var i ;
             for (i = 2 ; i < sheetData.length ; i++) {
 
-                var name = data.feed.entry[i]['gsx$_cn6ca']['$t'];
+                var name = sheetData[i]['gsx$_cn6ca']['$t'];
                 //var date = data.feed.entry[i]['gsx$_cpzh4']['$t'];
-                var id = data.feed.entry[i]['gsx$_ckd7g']['$t'];
+                var id = sheetData[i]['gsx$_ckd7g']['$t'];
 
                 document.getElementById('demo').innerHTML += ('<tr>' + '<td>' + id + '</td>' + '<td>' + '<u>' + '<a href="Chart">' + name + '</a>' + '</u>' + '</td>' + '</tr>');
                 //change future code from href stuff to controller stuff, make sure it passes name or id through to the next page
+
+
             }
         });
        

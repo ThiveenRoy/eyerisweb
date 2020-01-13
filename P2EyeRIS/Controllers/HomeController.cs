@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading;
+
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Firebase.Database;
 using Firebase.Database.Query;
@@ -26,7 +31,7 @@ namespace P2EyeRIS.Controllers
 
             if (loginID == "user" && password == "password")
             {                 // Redirect user to the "LecturerMain" view through an action
-                return RedirectToAction("LecturerMain");
+                return RedirectToAction("Index", "Staff");
             }
             //testing>>>>>
             else if (loginID == "no" && password == "no")
