@@ -5,7 +5,7 @@
 <h1>Testing Charts from Chart.js</h1>
 <body>
     <canvas id="myChart"></canvas>
-
+    @*<canvas id="myChart3"></canvas>*@
     <canvas id="myChart2" width="400" height="400"></canvas>
 </body>
 
@@ -31,6 +31,73 @@
         // Configuration options go here
         options: {}
     });
+</script>
+
+<script type="text/javascript" src="~/js/jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        //var sheetUrl = 'https://spreadsheets.google.com/feeds/list/1f_CjIkzfLWNJYsgOf8CpCgm4xqnepNB0m4UwXrN3TTQ/1/public/values?alt=json';
+        var sheetUrl = 'https://spreadsheets.google.com/feeds/list/1O7RMsXpuGPbAz5cmwwSlkKTIs3Ip7wOuymLa2rvqrSs/1/public/values?alt=json';
+        $.getJSON(sheetUrl, function (data) {
+            var entry = data.feed.entry;
+            var day = []; // the leftmost column of the Google Sheets
+            var A = []; // second-left column
+            console.log(entry);
+            //for (i = 0; i < entry.length; i += 1) {
+            //    // entry[i].content.$t retrieves the content of each cell
+            //    day.push(entry[i].content.$t);
+            //    A.push(entry[i + 1].content.$t);
+
+            //}
+
+            //console.log(day);
+            //console.log(A);
+
+//    var ctx = document.getElementById("myChart3").getContext('2d');
+//var myChart3 = new Chart(ctx, {
+//          type: 'line',
+//    data: {
+//        labels: 
+//              datasets: [{
+//                  label: 
+//                  fill: false,
+//                  data: 
+//                  borderColor: '#F3A68E',
+//                  borderWidth: 3,
+//                  backgroundColor: '#F3A68E',
+//                  borderDash: [10,5],
+//              },{
+//                label: 'Impressions',
+//                fill: false,
+//                data: imp,
+//                borderColor: '#698C01',
+//                borderWidth: 3,
+//                backgroundColor: '#698C01',
+//                borderDash: [10,5],
+//              }
+//            ]
+//          },
+//          options: {
+//              scales: {
+//                  yAxes: [{
+//                      ticks: {
+//                          beginAtZero:true
+//                      }
+//                  }]
+//              },
+//              legend: {
+//                position: 'bottom',
+//                labels:{
+//                  boxWidth: 15,
+//                  fontSize: 15,
+//                },
+//              },
+//          }
+//});
+                    });
+    });
+       
 </script>
 
 <script>

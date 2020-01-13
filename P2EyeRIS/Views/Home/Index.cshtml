@@ -8,34 +8,38 @@
     <meta name="viewport" content="width = device-width, initial-scale = 1" />
     <title>Login Page</title>
     <link rel="stylesheet" type="text/css" href="~/css/login.css">
+    <style>
+        .button {
+            background-color: gray;
+            border: none;
+            color: white;
+            padding: 20px 34px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <p> EyeRIS Face Recognition </p>
     <form method="post" action="~/Home/StaffLogin">
         <div class="container">
-            
-                <div class="register">
-                    <form>
-                    <div class="form-group">
-                        <label for="email">Email: </label>
-                        <input type="email" class="form-control email" />
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password: </label>
-                        <input type="password" class="form-control password" />
-                    </div>
-                    <button class="btn btn-primary">Register!</button>
-                        </form>
+            <div class="row">
+                <div class="col">
+                    <img src="~/images/sad.png" class="center" />
+                    <p> Lecturer Login </p>
+                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="submit" value="Login">
+                    <a href="~/Home/studentLogin" class="button ">
+                        Im a Student!
+                    </a>
+                    <p name="gay" @TempData["gay"]></p>
                 </div>
-            
-            @*<div class="row">
-                    <div class="col">
-                        <img src="~/images/sad.png" class="center" />
-                        <input type="text" name="username" placeholder="Username" required>
-                        <input type="password" name="password" placeholder="Password" required>
-                        <input type="submit" value="Login">
-                    </div>
-                </div>*@
+            </div>
         </div>
     </form>
     <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>*

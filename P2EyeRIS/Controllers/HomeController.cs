@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Firebase.Database;
+using Firebase.Database.Query;
 
 namespace P2EyeRIS.Controllers
 {
@@ -8,8 +10,12 @@ namespace P2EyeRIS.Controllers
         public IActionResult Index()
         {
             return View();
+            //insert login verification
         }
-
+        public IActionResult studentLogin()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult StaffLogin(IFormCollection formData)
         {
@@ -34,7 +40,30 @@ namespace P2EyeRIS.Controllers
                 return RedirectToAction("Index");
             }
         }
+        [HttpPost]
+        public ActionResult StudentLogin(IFormCollection formData)
+        {
+            // Read inputs from textboxes
+            // username converted to lowercase
+            string loginID = formData["username"].ToString().ToLower();
+            string password = formData["password"].ToString();
 
+            if (loginID == "user" && password == "password")
+            {                 // Redirect user to the "LecturerMain" view through an action
+                return RedirectToAction("Chart");
+            }
+            //testing>>>>>
+            else if (loginID == "no" && password == "no")
+            {
+                return RedirectToAction("TestChart");
+            }
+            else
+            {
+                // Redirect user back to the index view through an action
+
+                return RedirectToAction("Index");
+            }
+        }
         public ActionResult LecturerMain()
         {
             return View();
