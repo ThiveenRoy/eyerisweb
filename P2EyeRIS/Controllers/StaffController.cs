@@ -44,8 +44,8 @@ namespace P2EyeRIS.Controllers
             });
 
             String spreadsheetId = "1Ws-dLtYaGjHGwpgNEZHwHWK0X-4eFfEjB5JjS7JcTeI";
-            String moduleClass = "FSD_T01";
-            String listRange = "A7:B12";
+            String moduleClass = "FSD_T01"; //can be automated later
+            String listRange = "A7:B12"; //can be automated later
             String totalRange = string.Format("{0}!{1}", moduleClass, listRange);
             SpreadsheetsResource.ValuesResource.GetRequest request =
                     service.Spreadsheets.Values.Get(spreadsheetId, totalRange);

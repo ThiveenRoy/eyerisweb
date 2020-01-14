@@ -31,7 +31,7 @@
             tr = table.getElementsByTagName("tr");
 
             for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[1];
+                td = tr[i];
                 if (td) {
                     txtValue = td.textContent || td.innerText;
                     if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -67,7 +67,7 @@
                     {
                         <tr>
                             <td>@item.Id</td>
-                            <td><a asp-action="<InsertViewAttendanceActionHere>" asp-controller="Student" asp-route-id="@item.Id"><u>@item.Name</u></a></td>
+                            <td><a asp-action="Profile" asp-controller="Student" asp-route-id="@item.Id"><u>@item.Name</u></a></td>
                         </tr>
                     }
                 </tbody>
