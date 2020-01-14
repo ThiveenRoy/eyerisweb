@@ -35,26 +35,42 @@
 
 <script type="text/javascript" src="~/js/jquery-3.3.1.min.js"></script>
 
-<script type="text/javascript">
+<script>
     $(function () {
-        //var sheetUrl = 'https://spreadsheets.google.com/feeds/list/1f_CjIkzfLWNJYsgOf8CpCgm4xqnepNB0m4UwXrN3TTQ/1/public/values?alt=json';
-        var sheetUrl = 'https://spreadsheets.google.com/feeds/list/1O7RMsXpuGPbAz5cmwwSlkKTIs3Ip7wOuymLa2rvqrSs/1/public/values?alt=json';
+        //var sheetUrl = 'https://spreadsheets.google.com/feeds/cells/1f_CjIkzfLWNJYsgOf8CpCgm4xqnepNB0m4UwXrN3TTQ/1/public/values?alt=json';
+        var sheetUrl = 'https://spreadsheets.google.com/feeds/cells/1O7RMsXpuGPbAz5cmwwSlkKTIs3Ip7wOuymLa2rvqrSs/1/public/values?alt=json';
         $.getJSON(sheetUrl, function (data) {
             var entry = data.feed.entry;
-            var day = []; // the leftmost column of the Google Sheets
-            var A = []; // second-left column
             console.log(entry);
-            //for (i = 0; i < entry.length; i += 1) {
-            //    // entry[i].content.$t retrieves the content of each cell
-            //    day.push(entry[i].content.$t);
-            //    A.push(entry[i + 1].content.$t);
+            var weeks = []; // the leftmost column of the Google Sheets
 
-            //}
+            for (var i = 3; i < entry.length; i += 1) {
+                weeks.push(entry[i].content.$t);
+                //Stuck, need to break loop after date entry 
 
-            //console.log(day);
-            //console.log(A);
+            };
+        });
 
-//    var ctx = document.getElementById("myChart3").getContext('2d');
+
+        //var entry = data.feed.entry;
+        //var days = []; // the leftmost column of the Google Sheets
+        //var myatd = []; // second-left column
+
+        ////days loop i = 3 to 16
+        //for (var i = 3; i < 4 ; i += 2){
+        //    // entry[i].content.$t retrieves the content of each cell
+        //    days.push(entry[i].content.$t);
+        //    //myatd.push(entry[i + 5].content.$t);
+        //  }
+
+        //console.log(entry);
+        //console.log(days);
+        //console.log(myatd);
+    });
+</script>
+
+      
+@*//    var ctx = document.getElementById("myChart3").getContext('2d');
 //var myChart3 = new Chart(ctx, {
 //          type: 'line',
 //    data: {
@@ -94,9 +110,7 @@
 //                },
 //              },
 //          }
-//});
-                    });
-    });
+//});*@
        
 </script>
 
