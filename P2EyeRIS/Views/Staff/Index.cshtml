@@ -44,15 +44,32 @@
             }
         }
     </script>
+    <script language="javascript">
+        //currently below not work, fking js+.net=wonkyland
+        //referred from https://stackoverflow.com/questions/12725265/is-it-possible-to-use-a-for-loop-in-select-in-html-and-how
+        (function() {
+            var elm = document.getElementById('ddList'), //get selected value
+                df = document.createDocumentFragment(); //create a document fragment to hold the options while building
+            for (var i = 1; i <= 3; i++) //loop through number of moduleClasses that the lect teach, for now, hardcoded
+            {
+                var option = document.createElement('option');
+                option.value = i; //set value to item
+                option.appendChild(document.createTextNode("Class #" + i)); //set textContent in a safe way
+                df.appendChild(option); //append option to document fragment
+            }
+            elm.appendChild(df); //append the document fragment to the DOM
+        }());
+    </script>
 </head>
 
 <body>
-    <h4>Staff Mainpage</h4>
-
     @if (Model.ToList().Count > 0)
     {
         <div class="container text-center my-3">
-            <div align="right">
+            <div align="left">
+                Choose a Module+Class: <select id="ddList"></select>
+            </div>
+            <div align="right" style="position:relative; bottom: 10px;">
                 <input type="text" id="searchInput" onkeyup="searchFunction();" placeholder="Search..." />
             </div>
             <table class="table table bordered table-striped" id="testTable">

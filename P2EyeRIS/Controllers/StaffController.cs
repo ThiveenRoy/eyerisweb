@@ -19,10 +19,13 @@ namespace P2EyeRIS.Controllers
     {
         static string[] Scopes = { SheetsService.Scope.SpreadsheetsReadonly };
         static string ApplicationName = "Staff EyeRIS Dashboard";
+        string spreadsheetId = "1Ws-dLtYaGjHGwpgNEZHwHWK0X-4eFfEjB5JjS7JcTeI";
+        string moduleClass, listRange, totalRange;
+
+        UserCredential creds;
 
         public async Task<ActionResult> Index()
         {
-            UserCredential creds;
             using (var stream = new FileStream("cred.json", FileMode.Open, FileAccess.Read))
             {
                 // The file token.json stores the user's access and refresh tokens, and is created
@@ -43,10 +46,35 @@ namespace P2EyeRIS.Controllers
                 ApplicationName = ApplicationName,
             });
 
-            String spreadsheetId = "1Ws-dLtYaGjHGwpgNEZHwHWK0X-4eFfEjB5JjS7JcTeI";
-            String moduleClass = "FSD_T01"; //can be automated later
-            String listRange = "A7:B12"; //can be automated later
-            String totalRange = string.Format("{0}!{1}", moduleClass, listRange);
+            List<Student> sList = new List<Student>();
+
+            string sheet = "FSD_T01"; //yes, these are hardcoded in the meantime, to test the dropdown listx`
+            string range = "A7:B12";
+
+            if(ShowStudentList(sheet, range).Count() > 0)
+            {
+                sList = ShowStudentList(sheet, range);
+            }
+            return View(sList); //Return empty list onload
+        }
+
+        public void StudentProfile(string id)
+        {
+            //return student profile view provided their id and their attendance
+        }
+
+        [HttpPost] //Change return type to actionresult ltr
+        public List<Student> ShowStudentList(string moduleClassInput, string listRangeInput)
+        {
+            var service = new SheetsService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = creds,
+                ApplicationName = ApplicationName,
+            });
+
+            moduleClass = moduleClassInput; //can be automated later
+            listRange = listRangeInput; //can be automated later
+            totalRange = string.Format("{0}!{1}", moduleClass, listRange);
             SpreadsheetsResource.ValuesResource.GetRequest request =
                     service.Spreadsheets.Values.Get(spreadsheetId, totalRange);
 
@@ -57,26 +85,18 @@ namespace P2EyeRIS.Controllers
             {
                 List<Student> studentList = new List<Student>();
                 foreach (var row in values)
-                {   
+                {
                     Student s = new Student();
                     s.Id = row[0].ToString();
                     s.Name = row[1].ToString();
                     studentList.Add(s);
                 }
-
-                return View(studentList);
+                return studentList;
             }
             else
             {
-                return View(new List<Student>());
+                return new List<Student>();
             }
         }
-
-        public void StudentProfile(string id)
-        {
-            //return student profile view provided their id and their attendance
-        }
-
-        
     }
 }
