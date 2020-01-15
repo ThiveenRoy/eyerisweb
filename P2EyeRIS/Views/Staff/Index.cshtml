@@ -64,6 +64,7 @@
     <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="~/js/mdb.min.js"></script>
+
     <script language="javascript">
         //currently below not work, fking js+.net=wonkyland
         (function () {
@@ -72,13 +73,14 @@
             for (var i = 1; i <= 3; i++) //loop through number of moduleClasses that the lect teach, for now, hardcoded
             {
                 var option = document.createElement('option');
-                option.value = i; //set value to item
-                option.appendChild(document.createTextNode("Class #" + i)); //set textContent in a safe way
+                option.value = i; //set to sheet name aka moduleClass
+                option.appendChild(document.createTextNode(option.value)); //set textContent in a safe way
                 df.appendChild(option); //append option to document fragment
             }
             elm.appendChild(df); //append the document fragment to the DOM
         }());
     </script>
+
     <script language="javascript">
         function searchFunction() {
             var input, filter, table, tr, td, i, txtValue;
