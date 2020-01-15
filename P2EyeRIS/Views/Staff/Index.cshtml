@@ -21,45 +21,6 @@
     <link href="~/css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     @*<link href="~/css/style.css" rel="stylesheet">*@
-
-    <script language="javascript">
-        function searchFunction() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("searchInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("testTable");
-            tr = table.getElementsByTagName("tr");
-
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    }
-                    else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
-    </script>
-    <script language="javascript">
-        //currently below not work, fking js+.net=wonkyland
-        //referred from https://stackoverflow.com/questions/12725265/is-it-possible-to-use-a-for-loop-in-select-in-html-and-how
-        (function() {
-            var elm = document.getElementById('ddList'), //get selected value
-                df = document.createDocumentFragment(); //create a document fragment to hold the options while building
-            for (var i = 1; i <= 3; i++) //loop through number of moduleClasses that the lect teach, for now, hardcoded
-            {
-                var option = document.createElement('option');
-                option.value = i; //set value to item
-                option.appendChild(document.createTextNode("Class #" + i)); //set textContent in a safe way
-                df.appendChild(option); //append option to document fragment
-            }
-            elm.appendChild(df); //append the document fragment to the DOM
-        }());
-    </script>
 </head>
 
 <body>
@@ -67,7 +28,9 @@
     {
         <div class="container text-center my-3">
             <div align="left">
-                Choose a Module+Class: <select id="ddList"></select>
+                Choose a Module+Class:
+                <select id="ddList">
+                </select>
             </div>
             <div align="right" style="position:relative; bottom: 10px;">
                 <input type="text" id="searchInput" onkeyup="searchFunction();" placeholder="Search..." />
@@ -101,6 +64,43 @@
     <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="~/js/mdb.min.js"></script>
+    <script language="javascript">
+        //currently below not work, fking js+.net=wonkyland
+        (function () {
+            var elm = document.getElementById('ddList'), //get selected value
+                df = document.createDocumentFragment(); //create a document fragment to hold the options while building
+            for (var i = 1; i <= 3; i++) //loop through number of moduleClasses that the lect teach, for now, hardcoded
+            {
+                var option = document.createElement('option');
+                option.value = i; //set value to item
+                option.appendChild(document.createTextNode("Class #" + i)); //set textContent in a safe way
+                df.appendChild(option); //append option to document fragment
+            }
+            elm.appendChild(df); //append the document fragment to the DOM
+        }());
+    </script>
+    <script language="javascript">
+        function searchFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("testTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    }
+                    else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>
