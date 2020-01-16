@@ -29,7 +29,7 @@
         <div class="container text-center my-3">
             <div align="left">
                 Choose a Module+Class:
-                <select id="ddList">
+                <select id="ddList" onchange="getModuleClassList();">
                 </select>
             </div>
             <div align="right" style="position:relative; bottom: 10px;">
@@ -65,7 +65,7 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="~/js/mdb.min.js"></script>
 
-    <script language="javascript">
+    <script language="javascript"> //populate dropdown list
         (function () {
             var elm = document.getElementById('ddList'), //get selected value
                 df = document.createDocumentFragment(); //create a document fragment to hold the options while building
@@ -103,5 +103,11 @@
         }
     </script>
 
+    <script language="javascript">
+        function getModuleClassList() {
+            var moduleClass = document.getElementById("ddList");
+            
+        }
+    </script>
 </body>
 </html>

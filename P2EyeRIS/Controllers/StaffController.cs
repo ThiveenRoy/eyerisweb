@@ -48,7 +48,7 @@ namespace P2EyeRIS.Controllers
 
             List<Student> sList = new List<Student>();
 
-            string sheet = "FSD_T01"; //yes, these are hardcoded in the meantime, to test the dropdown listx`
+            string sheet = "FSD_T01"; //yes, these are hardcoded in the meantime, to test the dropdown list
             string range = "A7:B12";
 
             if(ShowStudentList(sheet, range).Count() > 0)
