@@ -19,10 +19,53 @@ namespace P2EyeRIS.Controllers
     {
         static string[] Scopes = { SheetsService.Scope.SpreadsheetsReadonly };
         static string ApplicationName = "Staff EyeRIS Dashboard";
+        string spreadsheetId = "1Ws-dLtYaGjHGwpgNEZHwHWK0X-4eFfEjB5JjS7JcTeI";
+        string sheet, range, moduleClass, listRange, totalRange;
+        List<string> staffModuleClass = new List<string>();
+        List<Student> sList = new List<Student>();
 
-        public async Task<ActionResult> Index()
+        UserCredential creds;
+
+        public IActionResult Index()
         {
-            UserCredential creds;
+            //load moduleList of staff upon loading
+            staffModuleClass = getModuleClass("S97652931E"); //again hardcoded staffid
+            ViewData["ModuleList"] = staffModuleClass;
+
+            return View(sList);
+        }
+
+        public async Task<ActionResult> ShowStudentList()
+        {
+            //Clear student list every time it retrieves
+            sList.Clear();
+
+            staffModuleClass = getModuleClass("S97652931E"); //hardcoded staffid
+
+            var service = new SheetsService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = creds,
+                ApplicationName = ApplicationName,
+            });
+
+            sheet = "FSD_T01"; //yes, these are hardcoded in the meantime, to test the dropdown list
+            range = "A7:B12";
+
+            if (RetrieveStudentList(sheet, range).Count() > 0)
+            {
+                sList = RetrieveStudentList(sheet, range);
+            }
+            return View(sList);
+        }
+
+        public void StudentProfile(string id)
+        {
+            //return student profile view provided their id and their attendance
+        }
+
+        [HttpPost] //Change return type to actionresult ltr
+        public List<Student> RetrieveStudentList(string moduleClassInput, string listRangeInput)
+        {
             using (var stream = new FileStream("cred.json", FileMode.Open, FileAccess.Read))
             {
                 // The file token.json stores the user's access and refresh tokens, and is created
@@ -43,10 +86,9 @@ namespace P2EyeRIS.Controllers
                 ApplicationName = ApplicationName,
             });
 
-            String spreadsheetId = "1Ws-dLtYaGjHGwpgNEZHwHWK0X-4eFfEjB5JjS7JcTeI";
-            String moduleClass = "FSD_T01"; //can be automated later
-            String listRange = "A7:B12"; //can be automated later
-            String totalRange = string.Format("{0}!{1}", moduleClass, listRange);
+            moduleClass = moduleClassInput; //can be automated later
+            listRange = listRangeInput; //can be automated later
+            totalRange = string.Format("{0}!{1}", moduleClass, listRange);
             SpreadsheetsResource.ValuesResource.GetRequest request =
                     service.Spreadsheets.Values.Get(spreadsheetId, totalRange);
 
@@ -57,26 +99,73 @@ namespace P2EyeRIS.Controllers
             {
                 List<Student> studentList = new List<Student>();
                 foreach (var row in values)
-                {   
+                {
                     Student s = new Student();
                     s.Id = row[0].ToString();
                     s.Name = row[1].ToString();
                     studentList.Add(s);
                 }
-
-                return View(studentList);
+                return studentList;
             }
             else
             {
-                return View(new List<Student>());
+                return new List<Student>();
             }
         }
 
-        public void StudentProfile(string id)
+        public List<string> getModuleClass(string staffId)
         {
-            //return student profile view provided their id and their attendance
-        }
+            staffModuleClass.Clear();
 
-        
+            using (var stream = new FileStream("cred.json", FileMode.Open, FileAccess.Read))
+            {
+                // The file token.json stores the user's access and refresh tokens, and is created
+                // automatically when the authorization flow completes for the first time.
+                string credPath = "token.json";
+                creds = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.Load(stream).Secrets,
+                    Scopes,
+                    "user",
+                    CancellationToken.None,
+                    new FileDataStore(credPath, true)).Result;
+                Console.WriteLine("Credential file saved to: " + credPath);
+            }
+
+            var service = new SheetsService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = creds,
+                ApplicationName = ApplicationName,
+            });
+
+            sheet = "StaffList";
+            range = "A2:C4";
+            totalRange = string.Format("{0}!{1}", sheet, range);
+
+            SpreadsheetsResource.ValuesResource.GetRequest request =
+                    service.Spreadsheets.Values.Get(spreadsheetId, totalRange);
+
+            ValueRange response = request.Execute();
+
+            List<string> moduleClassList = new List<string>();
+
+            IList<IList<Object>> values = response.Values;
+            if (values.Count > 0)
+            {
+                foreach (var row in values)
+                {
+                    if(staffId == "S97652931E")
+                    {
+                        var modulesTaught = row[2].ToString();
+                        string[] tempModuleArray = modulesTaught.Split(','); //parsing
+                        foreach(var i in tempModuleArray)
+                        {
+                            moduleClassList.Add(i);
+                        }
+                    }
+                }
+            }
+
+            return moduleClassList;
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Staff Mainpage";
+    var tempModuleList = (List<string>)ViewData["ModuleList"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -21,6 +22,71 @@
     <link href="~/css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     @*<link href="~/css/style.css" rel="stylesheet">*@
+</head>
+
+<body>
+    <div class="container text-center my-3">
+        <div align="left">
+            Welcome, Tay Zonday! <!--insert name here, for now, hardcoded-->
+            <p>Choose a Module+Class:</p>
+            <select id="ddList" onchange="getModuleClassList();">
+            </select>
+        </div>
+        <div align="right" style="position:relative; bottom: 10px;">
+            <input type="text" id="searchInput" onkeyup="searchFunction();" placeholder="Search..." />
+        </div>
+        <table class="table table bordered table-striped" id="testTable">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Id)</th>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                </tr>
+            </thead>
+            @if (Model.ToList().Count > 0)
+            {
+                <tbody id="demo">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td><a asp-action="Profile" asp-controller="Student" asp-route-id="@item.Id"><u>@item.Name</u></a></td>
+                        </tr>
+                    }
+                </tbody>
+            }
+        </table>
+    </div>
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="~/js/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="~/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="~/js/mdb.min.js"></script>
+
+    <script language="javascript"> //populate dropdown list
+        (function () {
+            var elm = document.getElementById('ddList'), //get selected value
+                df = document.createDocumentFragment(); //create a document fragment to hold the options while building
+
+            //aww yis razor syntax the good stuff mang
+
+            @foreach(var i in tempModuleList) //loop through number of moduleClasses that the lect teach, for now, hardcoded
+            {
+                <text>
+                    option = document.createElement('option');
+                    option.value = '@i'; //set value to module in the list
+                    option.appendChild(document.createTextNode(option.value)); //set textContent in a safe way
+                    df.appendChild(option); //append option to document fragment
+                </text>
+            }
+
+            elm.appendChild(df); //append the document fragment to the DOM
+        }());
+    </script>
 
     <script language="javascript">
         function searchFunction() {
@@ -44,46 +110,14 @@
             }
         }
     </script>
-</head>
 
-<body>
-    <h4>Staff Mainpage</h4>
-
-    @if (Model.ToList().Count > 0)
-    {
-        <div class="container text-center my-3">
-            <div align="right">
-                <input type="text" id="searchInput" onkeyup="searchFunction();" placeholder="Search..." />
-            </div>
-            <table class="table table bordered table-striped" id="testTable">
-                <thead>
-                    <tr>
-                        <th>@Html.DisplayNameFor(model => model.Id)</th>
-                        <th>@Html.DisplayNameFor(model => model.Name)</th>
-                    </tr>
-                </thead>
-                <tbody id="demo">
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.Id</td>
-                            <td><a asp-action="Profile" asp-controller="Student" asp-route-id="@item.Id"><u>@item.Name</u></a></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    }
-
-    <!-- SCRIPTS -->
-    <!-- JQuery -->
-    <script type="text/javascript" src="~/js/jquery-3.3.1.min.js"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="~/js/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="~/js/mdb.min.js"></script>
+    @* invoked when user click the moduleclass *@
+    <script language="javascript">
+        function getModuleClassList() {
+            var moduleClass = document.getElementById("ddList");
+            //invoke C# function: ShowStudentList();
+        }
+    </script>
 
 </body>
 </html>
