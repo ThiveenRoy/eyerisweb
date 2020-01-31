@@ -30,7 +30,10 @@ namespace P2EyeRIS.Controllers
             string password = formData["password"].ToString();
 
             if (loginID == "user" && password == "password")
-            {                 // Redirect user to the "LecturerMain" view through an action
+            {
+                TempData["LoggedStaffName"] = "Tay Zonday"; //hardcoded, can try testing by adding unique username/password
+                TempData["LoggedStaffId"] = "S97652931E"; //hardcoded, can try testing by adding unique username/password
+
                 return RedirectToAction("Index", "Staff");
             }
             //testing>>>>>

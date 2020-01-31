@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using P2EyeRIS.Models;
 using System.IO;
 using System.Threading;
+using javax.jws;
 
 namespace P2EyeRIS.Controllers
 {
@@ -28,19 +29,19 @@ namespace P2EyeRIS.Controllers
 
         public IActionResult Index()
         {
-            //load moduleList of staff upon loading
-            staffModuleClass = getModuleClass("S97652931E"); //again hardcoded staffid
+            //populate moduleList of logged staff upon loading
+            staffModuleClass = getModuleClass(TempData["LoggedStaffId"].ToString());
             ViewData["ModuleList"] = staffModuleClass;
+            ViewData["StaffName"] = TempData["LoggedStaffName"].ToString();
+            ShowStudentList("FSD_T01", "A7:B12");
 
             return View(sList);
         }
 
-        public async Task<ActionResult> ShowStudentList()
+        [HttpPost]
+        public ActionResult ShowStudentList(string sheet, string range)
         {
-            //Clear student list every time it retrieves
             sList.Clear();
-
-            staffModuleClass = getModuleClass("S97652931E"); //hardcoded staffid
 
             var service = new SheetsService(new BaseClientService.Initializer()
             {
@@ -63,7 +64,6 @@ namespace P2EyeRIS.Controllers
             //return student profile view provided their id and their attendance
         }
 
-        [HttpPost] //Change return type to actionresult ltr
         public List<Student> RetrieveStudentList(string moduleClassInput, string listRangeInput)
         {
             using (var stream = new FileStream("cred.json", FileMode.Open, FileAccess.Read))
@@ -138,7 +138,7 @@ namespace P2EyeRIS.Controllers
             });
 
             sheet = "StaffList";
-            range = "A2:C4";
+            range = "A2:C5";
             totalRange = string.Format("{0}!{1}", sheet, range);
 
             SpreadsheetsResource.ValuesResource.GetRequest request =
@@ -153,7 +153,7 @@ namespace P2EyeRIS.Controllers
             {
                 foreach (var row in values)
                 {
-                    if(staffId == "S97652931E")
+                    if(staffId == row[0].ToString()) //hardcoded
                     {
                         var modulesTaught = row[2].ToString();
                         string[] tempModuleArray = modulesTaught.Split(','); //parsing

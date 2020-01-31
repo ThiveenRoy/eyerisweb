@@ -27,7 +27,7 @@
 <body>
     <div class="container text-center my-3">
         <div align="left">
-            Welcome, Tay Zonday! <!--insert name here, for now, hardcoded-->
+            Welcome, @ViewData["StaffName"]! <!--insert name here, for now, hardcoded-->
             <p>Choose a Module+Class:</p>
             <select id="ddList" onchange="getModuleClassList();">
             </select>
@@ -96,7 +96,7 @@
             table = document.getElementById("testTable");
             tr = table.getElementsByTagName("tr");
 
-            for (i = 0; i < tr.length; i++) {
+            for (i = 1; i < tr.length; i++) { //skip headers
                 td = tr[i];
                 if (td) {
                     txtValue = td.textContent || td.innerText;
@@ -114,8 +114,15 @@
     @* invoked when user click the moduleclass *@
     <script language="javascript">
         function getModuleClassList() {
-            var moduleClass = document.getElementById("ddList");
-            //invoke C# function: ShowStudentList();
+            var selectedModuleClass = document.getElementById("ddList").value;
+            var modClassWithRange = { modClass: selectedModuleClass, range: "A7:B12"};
+            
+            $.ajax({
+                type: "POST",
+                url: "StaffController/ShowStudentList",
+                data: modClassWithRange,
+                success: function (data) { }
+            });
         }
     </script>
 
