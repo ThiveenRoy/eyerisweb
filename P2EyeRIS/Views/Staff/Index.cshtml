@@ -115,13 +115,14 @@
     <script language="javascript">
         function getModuleClassList() {
             var selectedModuleClass = document.getElementById("ddList").value;
-            var modClassWithRange = { modClass: selectedModuleClass, range: "A7:B12"};
+            var range = "A7:B14";
             
             $.ajax({
                 type: "POST",
-                url: "StaffController/ShowStudentList",
-                data: modClassWithRange,
-                success: function (data) { }
+                data: '{sheet:"' + selectedModuleClass + '", range:"' + range + '"}',
+                url: "@Url.Action("ShowStudentList")",
+                contentType: "application/Json;Charset=utf=8",
+                dataType: "json"
             });
         }
     </script>

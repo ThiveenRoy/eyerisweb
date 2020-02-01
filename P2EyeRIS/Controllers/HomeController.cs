@@ -31,8 +31,8 @@ namespace P2EyeRIS.Controllers
 
             if (loginID == "user" && password == "password")
             {
-                TempData["LoggedStaffName"] = "Tay Zonday"; //hardcoded, can try testing by adding unique username/password
-                TempData["LoggedStaffId"] = "S97652931E"; //hardcoded, can try testing by adding unique username/password
+                HttpContext.Session.SetString("LoggedStaffName", "Tay Zonday"); //hardcoded, can try testing by adding unique username/password
+                HttpContext.Session.SetString("LoggedStaffId", "S97652931E"); //hardcoded, can try testing by adding unique username/password
 
                 return RedirectToAction("Index", "Staff");
             }
