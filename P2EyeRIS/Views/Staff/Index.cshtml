@@ -120,15 +120,15 @@
 
     <script language="javascript">
         function getModuleClassList() {
-            var selectedModuleClass = document.getElementById("ddList").value;
             var range = "A7:B14";
             
             $.ajax({
                 type: "POST",
-                data: '{sheet:"' + selectedModuleClass + '", range:"' + range + '"}',
-                url: "@Url.Action("ShowStudentList")",
-                contentType: "application/Json;Charset=utf=8",
-                dataType: "json"
+                url: "Staff/ShowStudentList",
+                data: {sheet: $("ddList").val(), range: range},
+                success: function (response) {
+                    alert("Dropdown list value changed.");
+                }
             });
         }
     </script>
