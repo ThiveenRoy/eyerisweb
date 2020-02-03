@@ -93,7 +93,6 @@ namespace P2EyeRIS.Controllers
             {
                 HttpClientInitializer = creds,
                 ApplicationName = ApplicationName,
-        
             });
 
             totalRange = string.Format("{0}!{1}", moduleClassInput, listRangeInput);
