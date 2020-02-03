@@ -1,12 +1,73 @@
-﻿@{
+﻿@model IEnumerable<P2EyeRIS.Models.StudentGrade>
+
+@{
     ViewData["Title"] = "Test";
 }
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Material Design Bootstrap -->
+    <link href="~/css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    @*<link href="~/css/style.css" rel="stylesheet">*@
+</head>
+
+
 <h1>Testing Charts from Chart.js</h1>
 <body>
+    <!--Here is the part for chart-->
     <canvas id="myChart"></canvas>
     @*<canvas id="myChart3"></canvas>*@
     <canvas id="myChart2" width="400" height="400"></canvas>
+
+
+    <!--Here is the part for non chart-->
+    <div class="container text-center my-3">
+        <div align="left">
+            Welcome, @ViewData["StaffName"]! <!--insert name here, for now, hardcoded-->
+        </div>
+        <table class="table table bordered table-striped" id="testTable">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.P)</th>
+                    <th>@Html.DisplayNameFor(model => model.L)</th>
+                    <th>@Html.DisplayNameFor(model => model.E)</th>
+                    <th>@Html.DisplayNameFor(model => model.U)</th>
+                </tr>
+            </thead>
+            @if (Model.ToList().Count > 0)
+            {
+                <tbody id="demo">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.P</td>
+                            <td>@item.L</td>
+                            <td>@item.E</td>
+                            <td>@item.U</td>
+                        </tr>
+                    }
+                </tbody>
+            }
+        </table>
+    </div>
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="~/js/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="~/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="~/js/mdb.min.js"></script>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -68,49 +129,49 @@
     });
 </script>
 
-      
+
 @*//    var ctx = document.getElementById("myChart3").getContext('2d');
-//var myChart3 = new Chart(ctx, {
-//          type: 'line',
-//    data: {
-//        labels: 
-//              datasets: [{
-//                  label: 
-//                  fill: false,
-//                  data: 
-//                  borderColor: '#F3A68E',
-//                  borderWidth: 3,
-//                  backgroundColor: '#F3A68E',
-//                  borderDash: [10,5],
-//              },{
-//                label: 'Impressions',
-//                fill: false,
-//                data: imp,
-//                borderColor: '#698C01',
-//                borderWidth: 3,
-//                backgroundColor: '#698C01',
-//                borderDash: [10,5],
-//              }
-//            ]
-//          },
-//          options: {
-//              scales: {
-//                  yAxes: [{
-//                      ticks: {
-//                          beginAtZero:true
-//                      }
-//                  }]
-//              },
-//              legend: {
-//                position: 'bottom',
-//                labels:{
-//                  boxWidth: 15,
-//                  fontSize: 15,
-//                },
-//              },
-//          }
-//});*@
-       
+    //var myChart3 = new Chart(ctx, {
+    //          type: 'line',
+    //    data: {
+    //        labels:
+    //              datasets: [{
+    //                  label:
+    //                  fill: false,
+    //                  data:
+    //                  borderColor: '#F3A68E',
+    //                  borderWidth: 3,
+    //                  backgroundColor: '#F3A68E',
+    //                  borderDash: [10,5],
+    //              },{
+    //                label: 'Impressions',
+    //                fill: false,
+    //                data: imp,
+    //                borderColor: '#698C01',
+    //                borderWidth: 3,
+    //                backgroundColor: '#698C01',
+    //                borderDash: [10,5],
+    //              }
+    //            ]
+    //          },
+    //          options: {
+    //              scales: {
+    //                  yAxes: [{
+    //                      ticks: {
+    //                          beginAtZero:true
+    //                      }
+    //                  }]
+    //              },
+    //              legend: {
+    //                position: 'bottom',
+    //                labels:{
+    //                  boxWidth: 15,
+    //                  fontSize: 15,
+    //                },
+    //              },
+    //          }
+    //});*@
+
 </script>
 
 <script>

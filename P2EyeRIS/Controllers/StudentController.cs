@@ -28,10 +28,9 @@ namespace P2EyeRIS.Controllers
 
         UserCredential creds;
 
-        public IActionResult Index()
+        public IActionResult StudentChart()
         {
-
-            ShowStudentList("FSD_T01", "S7:V14");
+            ShowStudentList("FSD_T01", "S7:V12");
 
             using (var stream = new FileStream("cred.json", FileMode.Open, FileAccess.Read))
             {
@@ -94,7 +93,6 @@ namespace P2EyeRIS.Controllers
             {
                 HttpClientInitializer = creds,
                 ApplicationName = ApplicationName,
-        
             });
 
             totalRange = string.Format("{0}!{1}", moduleClassInput, listRangeInput);

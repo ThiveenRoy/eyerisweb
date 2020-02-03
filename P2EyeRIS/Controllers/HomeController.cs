@@ -21,6 +21,13 @@ namespace P2EyeRIS.Controllers
         {
             return View();
         }
+
+        //Below is a test for chart
+        public IActionResult StudentChart()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult StaffLogin(IFormCollection formData)
         {
@@ -57,28 +64,16 @@ namespace P2EyeRIS.Controllers
             string password = formData["password"].ToString();
 
             if (loginID == "user" && password == "password")
-            {                 // Redirect user to the "LecturerMain" view through an action
-                return RedirectToAction("Chart");
-            }
-            //testing>>>>>
-            else if (loginID == "no" && password == "no")
-            {
-                return RedirectToAction("TestChart");
+            {                 
+                return RedirectToAction("StudentChart", "Student");
             }
             else
             {
                 // Redirect user back to the index view through an action
-
                 return RedirectToAction("Index");
             }
         }
         public ActionResult LecturerMain()
-        {
-            return View();
-        }
-
-        //Below is a test for chart
-        public ActionResult Chart()
         {
             return View();
         }
