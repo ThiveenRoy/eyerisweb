@@ -20,7 +20,7 @@
     <!-- Material Design Bootstrap -->
     <link href="~/css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
-    @*<link href="~/css/style.css" rel="stylesheet">*@
+    @*<link href="~/css/style.css" rel="st+ylesheet">*@
 </head>
 
 <body>
@@ -31,7 +31,33 @@
             <select id="ddList" onchange="getModuleClassList();"></select>
 
         </div>
+<<<<<<< HEAD
+        <div id="refreshtab">
+           @* @{ Html.RenderPartial("Results", Model);}*@
+        <table class="table table bordered table-striped" id="testTable">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Id)</th>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                </tr>
+            </thead>
+            @if (Model.ToList().Count > 0)
+            {
+                <tbody id="demo">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td><a asp-action="Profile" asp-controller="Student" asp-route-id="@item.Id"><u>@item.Name</u></a></td>
+                        </tr>
+                    }
+                </tbody>
+            }
+        </table>
+        </div>
+=======
         @{await Html.RenderPartialAsync("_StudentListPartial");}
+>>>>>>> 18c03d956f9dd6eb2a23bcc4204c5ae5df6aa6fd
     </div>
 </body>
 
@@ -52,4 +78,33 @@
     }
 </script>
 
+<<<<<<< HEAD
+    @*
+        EXACTLY THIS PART IS A LITTLE BIT FAULTY, THAT'S WHY
+        THE FUNCTION CANNOT PARSE THE STRING PROPERLY,
+        BECAUSE THIS JAVASCRIPT FUNCT DIDNT MANAGE TO PASS
+        selectedModuleClass AND range INTO THE FUNCTION
+    *@
+
+    <script language="javascript">
+        function getModuleClassList() {
+            var range = "A7:B14";
+            var sheet = $("ddList").val();
+            var elm = document.getElementById('ddList').value;
+            
+            
+            $.ajax({
+                type: "POST",
+                url: "Staff/ShowStudentList",
+                data: {sheet: elm, range: range},
+                success: function (response) {
+                    alert("Dropdown list value changed.");
+                }
+            });
+        }
+    </script>
+
+</body>
+=======
+>>>>>>> 18c03d956f9dd6eb2a23bcc4204c5ae5df6aa6fd
 </html>
