@@ -64,7 +64,11 @@ namespace P2EyeRIS.Controllers
             string password = formData["password"].ToString();
 
             if (loginID == "user" && password == "password")
-            {                 
+            {
+                //same case as with lecturer, as we do not have a database for login ids
+                HttpContext.Session.SetString("LoggedStudentName", "Marcus"); //hardcoded, can try testing by adding unique username/password
+                HttpContext.Session.SetString("LoggedStudentID", "S10188625H"); //hardcoded, can try testing by adding unique username/password
+
                 return RedirectToAction("StudentChart", "Student");
             }
             else
