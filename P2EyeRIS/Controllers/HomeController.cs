@@ -21,6 +21,13 @@ namespace P2EyeRIS.Controllers
         {
             return View();
         }
+
+        //Below is a test for chart
+        public IActionResult Chart()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult StaffLogin(IFormCollection formData)
         {
@@ -73,12 +80,6 @@ namespace P2EyeRIS.Controllers
             }
         }
         public ActionResult LecturerMain()
-        {
-            return View();
-        }
-
-        //Below is a test for chart
-        public ActionResult Chart()
         {
             return View();
         }

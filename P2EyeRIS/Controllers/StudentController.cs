@@ -28,9 +28,8 @@ namespace P2EyeRIS.Controllers
 
         UserCredential creds;
 
-        public IActionResult Index()
+        public IActionResult Chart()
         {
-
             ShowStudentList("FSD_T01", "S7:V12");
 
             using (var stream = new FileStream("cred.json", FileMode.Open, FileAccess.Read))
