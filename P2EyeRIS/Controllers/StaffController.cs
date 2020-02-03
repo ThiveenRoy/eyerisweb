@@ -64,8 +64,6 @@ namespace P2EyeRIS.Controllers
         [HttpPost]
         public ActionResult ShowStudentList(string sheet, string range)
         {
-            sList.Clear();
-
             var service = new SheetsService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = creds,
@@ -76,6 +74,7 @@ namespace P2EyeRIS.Controllers
             {
                 sList = RetrieveStudentList(sheet, range);
             }
+
             return View(sList);
         }
 
