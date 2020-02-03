@@ -29,6 +29,7 @@
             Welcome, @ViewData["StaffName"]!
             <p>Choose a Module+Class:</p>
             <select id="ddList" onchange="getModuleClassList();"></select>
+
         </div>
         @{await Html.RenderPartialAsync("_StudentListPartial");}
     </div>
