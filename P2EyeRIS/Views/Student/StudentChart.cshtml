@@ -1,0 +1,96 @@
+﻿@model IEnumerable<P2EyeRIS.Models.StudentGrade>
+
+@{
+    ViewData["Title"] = "Student Charts";
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Material Design Bootstrap -->
+    <link href="~/css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    @*<link href="~/css/style.css" rel="stylesheet">*@
+</head>
+
+<body>
+    <br />
+    <h2>Welcome, @ViewData["StudentName"] - @ViewData["StudentID"]!</h2>
+    <p>Choose a Module:</p>
+    <select id="ddList" onchange="getModuleClassList();"></select>
+    <!--Here is the part for non chart-->
+    <div class="container text-center my-3">
+        <table class="table table bordered table-striped" id="testTable">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.P)</th>
+                    <th>@Html.DisplayNameFor(model => model.L)</th>
+                    <th>@Html.DisplayNameFor(model => model.E)</th>
+                    <th>@Html.DisplayNameFor(model => model.U)</th>
+                </tr>
+            </thead>
+            @if (Model.ToList().Count > 0)
+            {
+                <tbody id="demo">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.P</td>
+                            <td>@item.L</td>
+                            <td>@item.E</td>
+                            <td>@item.U</td>
+                        </tr>
+                    }
+                </tbody>
+            }
+        </table>
+    </div>
+    <br />
+
+    <!--Here is the part for chart-->
+    <canvas id="myChart" style="position: relative; height:40vh; width:80vw"</canvas>
+
+    <br />
+    <!-- SCRIPTS -->
+    <script type="text/javascript" src="~/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="~/js/popper.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/mdb.min.js"></script>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Absence', 'Presence', 'Excused', 'Unexcused'],
+            datasets: [{
+                label: 'Attendance Summary',
+                data: [7, 1, 1, 1],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+    });
+</script>
+

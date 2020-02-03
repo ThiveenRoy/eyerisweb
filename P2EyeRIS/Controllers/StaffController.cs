@@ -23,20 +23,22 @@ namespace P2EyeRIS.Controllers
         static string ApplicationName = "Staff EyeRIS Dashboard";
         string spreadsheetId = "1Ws-dLtYaGjHGwpgNEZHwHWK0X-4eFfEjB5JjS7JcTeI";
         string loggedStaffId, loggedStaffName, sheet, range, totalRange;
-        List<string> staffModuleClass = new List<string>();
-        List<Student> sList;
+        List<Student> sList = new List<Student>();
 
         UserCredential creds;
 
         public IActionResult Index()
         {
             //populate moduleList of logged staff upon loading
+            
+            sList = RetrieveStudentList("FSD_T01", "A7:B14");
+
+            List<string> staffModuleClass = new List<string>();
             loggedStaffId = HttpContext.Session.GetString("LoggedStaffId");
             loggedStaffName = HttpContext.Session.GetString("LoggedStaffName");
             staffModuleClass = getModuleClass(loggedStaffId);
             ViewData["ModuleList"] = staffModuleClass;
             ViewData["StaffName"] = loggedStaffName;
-            sList = new List<Student>();
             ShowStudentList("FSD_T01", "A7:B14");
 
 
@@ -66,13 +68,9 @@ namespace P2EyeRIS.Controllers
         }
 
         [HttpPost]
-        public ActionResult ShowStudentList(string sheet, string range)
+        public IActionResult ShowStudentList(string sheet, string range)
         {
-            var service = new SheetsService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = creds,
-                ApplicationName = ApplicationName,
-            });
+            List<Student> sList = new List<Student>();
 
             if (RetrieveStudentList(sheet, range).Count() > 0)
             {
@@ -83,9 +81,10 @@ namespace P2EyeRIS.Controllers
 
         }
 
-        public void StudentProfile(string id)
+        public ActionResult StudentProfile(string id)
         {
             //return student profile view provided their id and their attendance
+            return View();
         }
 
         public List<Student> RetrieveStudentList(string moduleClassInput, string listRangeInput)
@@ -138,8 +137,6 @@ namespace P2EyeRIS.Controllers
 
         public List<string> getModuleClass(string staffId)
         {
-            staffModuleClass.Clear();
-
             using (var stream = new FileStream("cred.json", FileMode.Open, FileAccess.Read))
             {
                 // The file token.json stores the user's access and refresh tokens, and is created

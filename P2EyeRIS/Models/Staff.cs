@@ -13,7 +13,5 @@ namespace P2EyeRIS.Models
 
         [Display(Name = "Name")]
         public String Name { get; set; }
-
-        public List<String> ModulesTaught { get; set; }
     }
 }
