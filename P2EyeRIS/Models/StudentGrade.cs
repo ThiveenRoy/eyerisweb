@@ -14,7 +14,7 @@ namespace P2EyeRIS.Models
         [Display(Name = "Late")]
         public String L { get; set; }
 
-        [Display(Name = "Excused)]
+        [Display(Name = "Excused")]
         public String E { get; set; }
 
         [Display(Name = "Unexcused")]
