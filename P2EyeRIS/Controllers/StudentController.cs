@@ -28,7 +28,7 @@ namespace P2EyeRIS.Controllers
 
         UserCredential creds;
 
-        public IActionResult Chart()
+        public IActionResult StudentChart()
         {
             ShowStudentList("FSD_T01", "S7:V12");
 

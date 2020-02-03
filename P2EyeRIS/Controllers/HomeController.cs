@@ -23,7 +23,7 @@ namespace P2EyeRIS.Controllers
         }
 
         //Below is a test for chart
-        public IActionResult Chart()
+        public IActionResult StudentChart()
         {
             return View();
         }
@@ -65,17 +65,11 @@ namespace P2EyeRIS.Controllers
 
             if (loginID == "user" && password == "password")
             {                 
-                return RedirectToAction("Chart");
-            }
-            //testing>>>>>
-            else if (loginID == "no" && password == "no")
-            {
-                return RedirectToAction("TestChart");
+                return RedirectToAction("StudentChart", "Student");
             }
             else
             {
                 // Redirect user back to the index view through an action
-
                 return RedirectToAction("Index");
             }
         }
