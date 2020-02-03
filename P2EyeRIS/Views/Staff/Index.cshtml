@@ -122,13 +122,12 @@
         function getModuleClassList() {
             var range = "A7:B14";
             //var sheet = $("ddList").val();
-            var elm = document.getElementById('ddList').value;
-            
-            
+            var sheetSelected = document.getElementById('ddList').value;
+
             $.ajax({
                 type: "POST",
                 url: "Staff/ShowStudentList",
-                data: {sheet: elm, range: range},
+                data: { sheet: sheetSelected, range: range },
                 success: function (response) {
                     alert("Dropdown list value changed.");
                 }
