@@ -72,8 +72,6 @@
             var elm = document.getElementById('ddList'), //get selected value
                 df = document.createDocumentFragment(); //create a document fragment to hold the options while building
 
-            //aww yis razor syntax the good stuff mang
-
             @foreach(var i in tempModuleList) //loop through number of moduleClasses that the lect teach, for now, hardcoded
             {
                 <text>
@@ -122,14 +120,13 @@
         function getModuleClassList() {
             var range = "A7:B14";
             //var sheet = $("ddList").val();
-            var elm = document.getElementById('ddList').value;
-            
-            
+            var sheetSelected = document.getElementById('ddList').value;
+
             $.ajax({
                 type: "POST",
                 url: "Staff/ShowStudentList",
-                data: {sheet: elm, range: range},
-                success: function (response) {
+                data: { sheet: sheetSelected, range: range },
+                success: function (result) {
                     alert("Dropdown list value changed.");
                 }
             });
