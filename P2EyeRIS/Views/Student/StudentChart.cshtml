@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<P2EyeRIS.Models.StudentGrade>
 
 @{
-    ViewData["Title"] = "Test";
+    ViewData["Title"] = "Student Charts";
 }
 
 <head>
@@ -18,21 +18,11 @@
     <!-- Your custom styles (optional) -->
     @*<link href="~/css/style.css" rel="stylesheet">*@
 </head>
-
-
-<h1>Testing Charts from Chart.js</h1>
 <body>
-    <!--Here is the part for chart-->
-    <canvas id="myChart"></canvas>
-    @*<canvas id="myChart3"></canvas>*@
-    <canvas id="myChart2" width="400" height="400"></canvas>
-
-
+    <br />
+    <h2>Welcome, @ViewData["StudentName"] - @ViewData["StudentID"]!</h2>
     <!--Here is the part for non chart-->
     <div class="container text-center my-3">
-        <div align="left">
-            Welcome, @ViewData["StaffName"]! <!--insert name here, for now, hardcoded-->
-        </div>
         <table class="table table bordered table-striped" id="testTable">
             <thead>
                 <tr>
@@ -58,7 +48,14 @@
             }
         </table>
     </div>
+    <br />
 
+    <!--Here is the part for chart-->
+    <canvas id="myChart"></canvas>
+    @*<canvas id="myChart3"></canvas>*@
+    <canvas id="myChart2" width="400" height="400"></canvas>
+
+    <br />
     <!-- SCRIPTS -->
     <!-- JQuery -->
     <script type="text/javascript" src="~/js/jquery-3.3.1.min.js"></script>
@@ -84,7 +81,7 @@
                 label: 'Attendance in %',
                 backgroundColor: 'rgb(255, 99, 132)',
                 borderColor: 'rgb(255, 99, 132)',
-                data: [100, 90, 95, 95, 90, 95, 85, 90] //actual dataset, which can be taken from the database or google sheets and calculated
+                data: [95, 90, 95, 95, 90, 95, 85, 90] //actual dataset, which can be taken from the database or google sheets and calculated
                 //take in data, calculate avg of month and display? compare to other months, semesters or years? have a warning when drops below a certain value
             }]
         },
