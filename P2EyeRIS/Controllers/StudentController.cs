@@ -31,7 +31,7 @@ namespace P2EyeRIS.Controllers
         public IActionResult Index()
         {
 
-            ShowStudentList("FSD_T01", "S7:V14");
+            ShowStudentList("FSD_T01", "S7:V12");
 
             using (var stream = new FileStream("cred.json", FileMode.Open, FileAccess.Read))
             {
