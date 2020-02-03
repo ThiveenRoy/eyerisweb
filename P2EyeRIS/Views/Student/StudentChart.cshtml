@@ -51,139 +51,28 @@
     <br />
 
     <!--Here is the part for chart-->
-    <canvas id="myChart"></canvas>
-    @*<canvas id="myChart3"></canvas>*@
-    <canvas id="myChart2" width="400" height="400"></canvas>
+    <canvas id="myChart" style="position: relative; height:40vh; width:80vw"</canvas>
 
     <br />
     <!-- SCRIPTS -->
-    <!-- JQuery -->
     <script type="text/javascript" src="~/js/jquery-3.3.1.min.js"></script>
-    <!-- Bootstrap tooltips -->
     <script type="text/javascript" src="~/js/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
     <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
     <script type="text/javascript" src="~/js/mdb.min.js"></script>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'line',
-
-        // The data for our dataset
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'], //labels for x axis
-            datasets: [{
-                label: 'Attendance in %',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: [95, 90, 95, 95, 90, 95, 85, 90] //actual dataset, which can be taken from the database or google sheets and calculated
-                //take in data, calculate avg of month and display? compare to other months, semesters or years? have a warning when drops below a certain value
-            }]
-        },
-
-        // Configuration options go here
-        options: {}
-    });
-</script>
-
-<script type="text/javascript" src="~/js/jquery-3.3.1.min.js"></script>
-
-<script>
-    $(function () {
-        //var sheetUrl = 'https://spreadsheets.google.com/feeds/cells/1f_CjIkzfLWNJYsgOf8CpCgm4xqnepNB0m4UwXrN3TTQ/1/public/values?alt=json';
-        var sheetUrl = 'https://spreadsheets.google.com/feeds/cells/1O7RMsXpuGPbAz5cmwwSlkKTIs3Ip7wOuymLa2rvqrSs/1/public/values?alt=json';
-        $.getJSON(sheetUrl, function (data) {
-            var entry = data.feed.entry;
-            console.log(entry);
-            var weeks = []; // the leftmost column of the Google Sheets
-
-            for (var i = 3; i < entry.length; i += 1) {
-                weeks.push(entry[i].content.$t);
-
-            };
-        });
-
-
-        //var entry = data.feed.entry;
-        //var days = []; // the leftmost column of the Google Sheets
-        //var myatd = []; // second-left column
-
-        ////days loop i = 3 to 16
-        //for (var i = 3; i < 4 ; i += 2){
-        //    // entry[i].content.$t retrieves the content of each cell
-        //    days.push(entry[i].content.$t);
-        //    //myatd.push(entry[i + 5].content.$t);
-        //  }
-
-        //console.log(entry);
-        //console.log(days);
-        //console.log(myatd);
-    });
-</script>
-
-
-@*//    var ctx = document.getElementById("myChart3").getContext('2d');
-    //var myChart3 = new Chart(ctx, {
-    //          type: 'line',
-    //    data: {
-    //        labels:
-    //              datasets: [{
-    //                  label:
-    //                  fill: false,
-    //                  data:
-    //                  borderColor: '#F3A68E',
-    //                  borderWidth: 3,
-    //                  backgroundColor: '#F3A68E',
-    //                  borderDash: [10,5],
-    //              },{
-    //                label: 'Impressions',
-    //                fill: false,
-    //                data: imp,
-    //                borderColor: '#698C01',
-    //                borderWidth: 3,
-    //                backgroundColor: '#698C01',
-    //                borderDash: [10,5],
-    //              }
-    //            ]
-    //          },
-    //          options: {
-    //              scales: {
-    //                  yAxes: [{
-    //                      ticks: {
-    //                          beginAtZero:true
-    //                      }
-    //                  }]
-    //              },
-    //              legend: {
-    //                position: 'bottom',
-    //                labels:{
-    //                  boxWidth: 15,
-    //                  fontSize: 15,
-    //                },
-    //              },
-    //          }
-    //});*@
-
-</script>
-
-<script>
-    var ctx = document.getElementById('myChart2');
+    var ctx = document.getElementById('myChart');
     var myChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'pie',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: ['Absence', 'Presence', 'Excused', 'Unexcused'],
             datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+                label: 'Attendance Summary',
+                data: [7, 1, 1, 1],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
                     'rgba(153, 102, 255, 0.2)',
                     'rgba(255, 159, 64, 0.2)'
@@ -199,14 +88,5 @@
                 borderWidth: 1
             }]
         },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
     });
 </script>
