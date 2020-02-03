@@ -33,9 +33,6 @@
         <div align="left">
             Welcome, @ViewData["StaffName"]! <!--insert name here, for now, hardcoded-->
         </div>
-        <div align="right" style="position:relative; bottom: 10px;">
-            <input type="text" id="searchInput" onkeyup="searchFunction();" placeholder="Search..." />
-        </div>
         <table class="table table bordered table-striped" id="testTable">
             <thead>
                 <tr>
@@ -50,12 +47,12 @@
                 <tbody id="demo">
                     @foreach (var item in Model)
                     {
-                    <tr>
-                        <td>@item.P</td>
-                        <td>@item.L</td>
-                        <td>@item.E</td>
-                        <td>@item.U</td>
-                    </tr>
+                        <tr>
+                            <td>@item.P</td>
+                            <td>@item.L</td>
+                            <td>@item.E</td>
+                            <td>@item.U</td>
+                        </tr>
                     }
                 </tbody>
             }
@@ -72,15 +69,6 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="~/js/mdb.min.js"></script>
 </body>
-
-
-
-
-
-
-
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
