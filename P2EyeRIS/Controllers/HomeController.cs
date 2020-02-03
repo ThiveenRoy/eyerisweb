@@ -57,7 +57,7 @@ namespace P2EyeRIS.Controllers
             string password = formData["password"].ToString();
 
             if (loginID == "user" && password == "password")
-            {                 // Redirect user to the "LecturerMain" view through an action
+            {                 
                 return RedirectToAction("Chart");
             }
             //testing>>>>>
