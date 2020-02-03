@@ -28,13 +28,27 @@
         <div align="left">
             Welcome, @ViewData["StaffName"]!
             <p>Choose a Module+Class:</p>
-            <select id="ddList" onchange="getModuleClassList();">
-            </select>
+            <select id="ddList" onchange="getModuleClassList();"></select>
         </div>
-
         @{await Html.RenderPartialAsync("_StudentListPartial");}
-
     </div>
-
 </body>
+
+<script language="javascript">
+    function getModuleClassList() {
+        var range = "A7:B14";
+        //var sheet = $("ddList").val();
+        var sheetSelected = document.getElementById('ddList').value;
+
+        $.ajax({
+            type: "POST",
+            url: "Staff/ShowStudentList",
+            data: { sheet: sheetSelected, range: range },
+            success: function (result) {
+                alert("Dropdown list value changed.");
+            }
+        });
+    }
+</script>
+
 </html>
