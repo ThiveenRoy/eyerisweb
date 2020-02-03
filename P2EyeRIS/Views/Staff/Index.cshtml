@@ -35,6 +35,8 @@
         <div align="right" style="position:relative; bottom: 10px;">
             <input type="text" id="searchInput" onkeyup="searchFunction();" placeholder="Search..." />
         </div>
+        <div id="refreshtab">
+           @* @{ Html.RenderPartial("Results", Model);}*@
         <table class="table table bordered table-striped" id="testTable">
             <thead>
                 <tr>
@@ -55,6 +57,7 @@
                 </tbody>
             }
         </table>
+        </div>
     </div>
 
     <!-- SCRIPTS -->
@@ -121,7 +124,7 @@
     <script language="javascript">
         function getModuleClassList() {
             var range = "A7:B14";
-            //var sheet = $("ddList").val();
+            var sheet = $("ddList").val();
             var elm = document.getElementById('ddList').value;
             
             

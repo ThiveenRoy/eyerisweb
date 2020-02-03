@@ -24,7 +24,7 @@ namespace P2EyeRIS.Controllers
         string spreadsheetId = "1Ws-dLtYaGjHGwpgNEZHwHWK0X-4eFfEjB5JjS7JcTeI";
         string loggedStaffId, loggedStaffName, sheet, range, totalRange;
         List<string> staffModuleClass = new List<string>();
-        List<Student> sList = new List<Student>();
+        List<Student> sList;
 
         UserCredential creds;
 
@@ -36,7 +36,9 @@ namespace P2EyeRIS.Controllers
             staffModuleClass = getModuleClass(loggedStaffId);
             ViewData["ModuleList"] = staffModuleClass;
             ViewData["StaffName"] = loggedStaffName;
+            sList = new List<Student>();
             ShowStudentList("FSD_T01", "A7:B14");
+
 
             using (var stream = new FileStream("cred.json", FileMode.Open, FileAccess.Read))
             {
@@ -58,6 +60,8 @@ namespace P2EyeRIS.Controllers
                 ApplicationName = ApplicationName,
             });
 
+            
+
             return View(sList);
         }
 
@@ -76,6 +80,7 @@ namespace P2EyeRIS.Controllers
             }
 
             return View(sList);
+
         }
 
         public void StudentProfile(string id)
