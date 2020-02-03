@@ -64,12 +64,6 @@ namespace P2EyeRIS.Controllers
         [HttpPost]
         public ActionResult ShowStudentList(string sheet, string range)
         {
-            var service = new SheetsService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = creds,
-                ApplicationName = ApplicationName,
-            });
-
             if (RetrieveStudentList(sheet, range).Count() > 0)
             {
                 sList = RetrieveStudentList(sheet, range);
