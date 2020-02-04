@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Staff Mainpage";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var tempModuleList = (List<string>)ViewData["ModuleList"];
 }
 
 <!DOCTYPE html>
@@ -30,12 +31,18 @@
             <p>Choose a Module+Class:</p>
             <select id="ddList" onchange="getModuleClassList();"></select>
         </div>
+        <div align="right" style="position:relative; bottom: 10px;">
+            <input type="text" id="searchInput" onkeyup="searchFunction();" placeholder="Search..." />
+        </div>
 
 
 
 
         @{await Html.RenderPartialAsync("trystudent");}
-        
+        @*@{await Html.RenderPartialAsync("_StudentListPartial");}*@
+
+
+
 
     </div>
 </body>
@@ -62,15 +69,62 @@
                 data: {sheet: elm, range: range},
                 success: function (response) {
                     alert("Dropdown list value changed.");
+                    $('#testTable').empty();
+                    $('#searchInput').empty();
+                    $('#testTable').html(response);
                 }
             });
         }
 </script>
-@*<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<script type="text/jscript">
+<script language="javascript">
+    function searchFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("testTable");
+        tr = table.getElementsByTagName("tr");
 
-    $(document).ready(function () {
-        $("#demo").load('/Controller/StaffController/ShowStudentList');
-    });
-</script>*@
+        for (i = 1; i < tr.length; i++) { //skip headers
+            td = tr[i];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                }
+                else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
+@*<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/jscript">
+
+        $(document).ready(function () {
+            $("#demo").load('/Controller/StaffController/ShowStudentList');
+        });
+    </script>*@
+<script language="javascript">
+ //populate dropdown list
+        (function () {
+            var elm = document.getElementById('ddList'), //get selected value
+                df = document.createDocumentFragment(); //create a document fragment to hold the options while building
+
+            @foreach(var i in tempModuleList) //loop through number of moduleClasses that the lect teach, for now, hardcoded
+            {
+                <text>
+                    option = document.createElement('option');
+                    option.value = '@i'; //set value to module in the list
+                    option.appendChild(document.createTextNode(option.value)); //set textContent in a safe way
+                    df.appendChild(option); //append option to document fragment
+                </text>
+            }
+
+            elm.appendChild(df); //append the document fragment to the DOM
+            elm.load()
+        }());
+</script>
+
 

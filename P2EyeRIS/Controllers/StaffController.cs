@@ -36,7 +36,7 @@ namespace P2EyeRIS.Controllers
             List<string> staffModuleClass = new List<string>();
             loggedStaffId = HttpContext.Session.GetString("LoggedStaffId");
             loggedStaffName = HttpContext.Session.GetString("LoggedStaffName");
-            staffModuleClass = getModuleClass(loggedStaffId);
+            //staffModuleClass = getModuleClass(loggedStaffId);
             ViewData["ModuleList"] = staffModuleClass;
             ViewData["StaffName"] = loggedStaffName;
             ShowStudentList("FSD_T01", "A7:B14");
