@@ -1,0 +1,85 @@
+﻿@model IEnumerable<P2EyeRIS.Models.Student>
+@{
+    var tempModuleList = (List<string>)ViewData["ModuleList"];
+}
+
+<table class="table">
+    <div align="right" style="position:relative; bottom: 10px;">
+        <input type="text" id="searchInput" onkeyup="searchFunction();" placeholder="Search..." />
+    </div>
+    <div>
+        <table class="table table bordered table-striped" id="testTable">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Id)</th>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                </tr>
+            </thead>
+            @if (Model.ToList().Count > 0)
+            {
+                <tbody id="demo">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td><a asp-action="Profile" asp-controller="Student" asp-route-id="@item.Id"><u>@item.Name</u></a></td>
+                        </tr>
+                    }
+                </tbody>
+            }
+        </table>
+    </div>
+</table>
+
+<!-- SCRIPTS -->
+<!-- JQuery -->
+<script type="text/javascript" src="~/js/jquery-3.3.1.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="~/js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="~/js/mdb.min.js"></script>
+
+<script language="javascript">
+ //populate dropdown list
+        (function () {
+            var elm = document.getElementById('ddList'), //get selected value
+                df = document.createDocumentFragment(); //create a document fragment to hold the options while building
+
+            @foreach(var i in tempModuleList) //loop through number of moduleClasses that the lect teach, for now, hardcoded
+            {
+                <text>
+                    option = document.createElement('option');
+                    option.value = '@i'; //set value to module in the list
+                    option.appendChild(document.createTextNode(option.value)); //set textContent in a safe way
+                    df.appendChild(option); //append option to document fragment
+                </text>
+            }
+
+            elm.appendChild(df); //append the document fragment to the DOM
+        }());
+</script>
+
+<script language="javascript">
+    function searchFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("testTable");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 1; i < tr.length; i++) { //skip headers
+            td = tr[i];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                }
+                else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>

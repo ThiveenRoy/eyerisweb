@@ -30,67 +30,32 @@
             <p>Choose a Module+Class:</p>
             <select id="ddList" onchange="getModuleClassList();"></select>
         </div>
-<<<<<<< HEAD
-        <div id="refreshtab">
-           @* @{ Html.RenderPartial("Results", Model);}*@
-        <table class="table table bordered table-striped" id="testTable">
-            <thead>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Id)</th>
-                    <th>@Html.DisplayNameFor(model => model.Name)</th>
-                </tr>
-            </thead>
-            @if (Model.ToList().Count > 0)
-            {
-                <tbody id="demo">
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.Id</td>
-                            <td><a asp-action="Profile" asp-controller="Student" asp-route-id="@item.Id"><u>@item.Name</u></a></td>
-                        </tr>
-                    }
-                </tbody>
-            }
-        </table>
-        </div>
-=======
-        @{await Html.RenderPartialAsync("_StudentListPartial");}
->>>>>>> 18c03d956f9dd6eb2a23bcc4204c5ae5df6aa6fd
+
+
+
+
+        @{await Html.RenderPartialAsync("trystudent");}
+        
+
     </div>
 </body>
+</html>
+
+
+@*
+    EXACTLY THIS PART IS A LITTLE BIT FAULTY, THAT'S WHY
+    THE FUNCTION CANNOT PARSE THE STRING PROPERLY,
+    BECAUSE THIS JAVASCRIPT FUNCT DIDNT MANAGE TO PASS
+    selectedModuleClass AND range INTO THE FUNCTION
+*@
 
 <script language="javascript">
-    function getModuleClassList() {
-        var range = "A7:B14";
-        //var sheet = $("ddList").val();
-        var sheetSelected = document.getElementById('ddList').value;
-
-        $.ajax({
-            type: "POST",
-            url: "Staff/ShowStudentList",
-            data: { sheet: sheetSelected, range: range },
-            success: function (result) {
-                alert("Dropdown list value changed.");
-            }
-        });
-    }
-</script>
-
-    @*
-        EXACTLY THIS PART IS A LITTLE BIT FAULTY, THAT'S WHY
-        THE FUNCTION CANNOT PARSE THE STRING PROPERLY,
-        BECAUSE THIS JAVASCRIPT FUNCT DIDNT MANAGE TO PASS
-        selectedModuleClass AND range INTO THE FUNCTION
-    *@
-
-    <script language="javascript">
         function getModuleClassList() {
             var range = "A7:B14";
             var sheet = $("ddList").val();
             var elm = document.getElementById('ddList').value;
-            
-            
+
+
             $.ajax({
                 type: "POST",
                 url: "Staff/ShowStudentList",
@@ -100,6 +65,12 @@
                 }
             });
         }
-    </script>
+</script>
+@*<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/jscript">
 
-</html>
+    $(document).ready(function () {
+        $("#demo").load('/Controller/StaffController/ShowStudentList');
+    });
+</script>*@
+

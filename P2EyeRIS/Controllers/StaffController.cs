@@ -68,16 +68,20 @@ namespace P2EyeRIS.Controllers
         }
 
         [HttpPost]
-        public IActionResult ShowStudentList(string sheet, string range)
+        public PartialViewResult ShowStudentList(string sheet, string range)
         {
             List<Student> sList = new List<Student>();
-
+            List<string> staffModuleClass = new List<string>();
+            loggedStaffId = HttpContext.Session.GetString("LoggedStaffId");
+            staffModuleClass = getModuleClass(loggedStaffId);
+            ViewData["ModuleList"] = staffModuleClass;
             if (RetrieveStudentList(sheet, range).Count() > 0)
             {
-                sList = RetrieveStudentList(sheet, range);
+                this.sList = RetrieveStudentList(sheet, range);
             }
 
-            return View(sList);
+            return PartialView("trystudent",this.sList);
+            
 
         }
 
