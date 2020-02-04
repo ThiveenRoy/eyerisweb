@@ -36,10 +36,11 @@ namespace P2EyeRIS.Controllers
             List<string> staffModuleClass = new List<string>();
             loggedStaffId = HttpContext.Session.GetString("LoggedStaffId");
             loggedStaffName = HttpContext.Session.GetString("LoggedStaffName");
-            staffModuleClass = getModuleClass(loggedStaffId);
+            //staffModuleClass = getModuleClass(loggedStaffId);
             ViewData["ModuleList"] = staffModuleClass;
             ViewData["StaffName"] = loggedStaffName;
-            //ShowStudentList("FSD_T01", "A7:B14");
+            ShowStudentList("FSD_T01", "A7:B14");
+
 
             using (var stream = new FileStream("cred.json", FileMode.Open, FileAccess.Read))
             {
@@ -61,20 +62,27 @@ namespace P2EyeRIS.Controllers
                 ApplicationName = ApplicationName,
             });
 
+            
+
             return View(sList);
         }
 
         [HttpPost]
-        public IActionResult ShowStudentList(string sheet, string range)
+        public PartialViewResult ShowStudentList(string sheet, string range)
         {
             List<Student> sList = new List<Student>();
-
+            List<string> staffModuleClass = new List<string>();
+            loggedStaffId = HttpContext.Session.GetString("LoggedStaffId");
+            staffModuleClass = getModuleClass(loggedStaffId);
+            ViewData["ModuleList"] = staffModuleClass;
             if (RetrieveStudentList(sheet, range).Count() > 0)
             {
-                sList = RetrieveStudentList(sheet, range);
+                this.sList = RetrieveStudentList(sheet, range);
             }
 
-            return View(sList);
+            return PartialView("trystudent",this.sList);
+            
+
         }
 
         public ActionResult StudentProfile(string id)
