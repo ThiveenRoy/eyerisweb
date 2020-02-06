@@ -2,8 +2,8 @@
 
 @{
     ViewData["Title"] = "Staff Mainpage";
-    var tempModuleList = (List<string>)ViewData["ModuleList"];
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var tempModuleList = (List<string>)ViewData["ModuleList"];
 }
 
 <!DOCTYPE html>
@@ -21,58 +21,96 @@
     <!-- Material Design Bootstrap -->
     <link href="~/css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
-    @*<link href="~/css/style.css" rel="stylesheet">*@
+    @*<link href="~/css/style.css" rel="st+ylesheet">*@
 </head>
 
 <body>
     <div class="container text-center my-3">
         <div align="left">
-            Welcome, @ViewData["StaffName"]! <!--insert name here, for now, hardcoded-->
+            Welcome, @ViewData["StaffName"]!
             <p>Choose a Module+Class:</p>
-            <select id="ddList" onchange="getModuleClassList();">
-            </select>
+            <select id="ddList" onchange="getModuleClassList();"></select>
         </div>
         <div align="right" style="position:relative; bottom: 10px;">
             <input type="text" id="searchInput" onkeyup="searchFunction();" placeholder="Search..." />
         </div>
-        <table class="table table bordered table-striped" id="testTable">
-            <thead>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Id)</th>
-                    <th>@Html.DisplayNameFor(model => model.Name)</th>
-                </tr>
-            </thead>
-            @if (Model.ToList().Count > 0)
-            {
-                <tbody id="demo">
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.Id</td>
-                            <td><a asp-action="Profile" asp-controller="Student" asp-route-id="@item.Id"><u>@item.Name</u></a></td>
-                        </tr>
-                    }
-                </tbody>
-            }
-        </table>
+
+
+
+
+        @{await Html.RenderPartialAsync("trystudent");}
+        @*@{await Html.RenderPartialAsync("_StudentListPartial");}*@
+
+
+
+
     </div>
+</body>
+</html>
 
-    <!-- SCRIPTS -->
-    <!-- JQuery -->
-    <script type="text/javascript" src="~/js/jquery-3.3.1.min.js"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="~/js/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="~/js/mdb.min.js"></script>
 
-    <script language="javascript"> //populate dropdown list
+@*
+    EXACTLY THIS PART IS A LITTLE BIT FAULTY, THAT'S WHY
+    THE FUNCTION CANNOT PARSE THE STRING PROPERLY,
+    BECAUSE THIS JAVASCRIPT FUNCT DIDNT MANAGE TO PASS
+    selectedModuleClass AND range INTO THE FUNCTION
+*@
+
+<script language="javascript">
+        function getModuleClassList() {
+            var range = "A7:B14";
+            var sheet = $("ddList").val();
+            var elm = document.getElementById('ddList').value;
+
+
+            $.ajax({
+                type: "POST",
+                url: "Staff/ShowStudentList",
+                data: {sheet: elm, range: range},
+                success: function (response) {
+                    alert("Dropdown list value changed.");
+                    $('#testTable').empty();
+                    $('#searchInput').empty();
+                    $('#testTable').html(response);
+                }
+            });
+        }
+</script>
+<script language="javascript">
+    function searchFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("testTable");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 1; i < tr.length; i++) { //skip headers
+            td = tr[i];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                }
+                else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
+@*<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/jscript">
+
+        $(document).ready(function () {
+            $("#demo").load('/Controller/StaffController/ShowStudentList');
+        });
+    </script>*@
+<script language="javascript">
+ //populate dropdown list
         (function () {
             var elm = document.getElementById('ddList'), //get selected value
                 df = document.createDocumentFragment(); //create a document fragment to hold the options while building
-
-            //aww yis razor syntax the good stuff mang
 
             @foreach(var i in tempModuleList) //loop through number of moduleClasses that the lect teach, for now, hardcoded
             {
@@ -85,56 +123,8 @@
             }
 
             elm.appendChild(df); //append the document fragment to the DOM
+            elm.load()
         }());
-    </script>
+</script>
 
-    <script language="javascript">
-        function searchFunction() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("searchInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("testTable");
-            tr = table.getElementsByTagName("tr");
 
-            for (i = 1; i < tr.length; i++) { //skip headers
-                td = tr[i];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    }
-                    else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
-    </script>
-
-    @*
-        EXACTLY THIS PART IS A LITTLE BIT FAULTY, THAT'S WHY
-        THE FUNCTION CANNOT PARSE THE STRING PROPERLY,
-        BECAUSE THIS JAVASCRIPT FUNCT DIDNT MANAGE TO PASS
-        selectedModuleClass AND range INTO THE FUNCTION
-    *@
-
-    <script language="javascript">
-        function getModuleClassList() {
-            var range = "A7:B14";
-            //var sheet = $("ddList").val();
-            var elm = document.getElementById('ddList').value;
-            
-            
-            $.ajax({
-                type: "POST",
-                url: "Staff/ShowStudentList",
-                data: {sheet: elm, range: range},
-                success: function (response) {
-                    alert("Dropdown list value changed.");
-                }
-            });
-        }
-    </script>
-
-</body>
-</html>
