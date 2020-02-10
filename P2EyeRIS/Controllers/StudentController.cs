@@ -22,15 +22,23 @@ namespace P2EyeRIS.Controllers
         static string[] Scopes = { SheetsService.Scope.SpreadsheetsReadonly };
         static string ApplicationName = "Staff EyeRIS Dashboard";
         string spreadsheetId = "1Ws-dLtYaGjHGwpgNEZHwHWK0X-4eFfEjB5JjS7JcTeI";
-        string loggedStaffId, loggedStaffName, sheet, range, totalRange;
+        string loggedStudentId, loggedStudentName, sheet, range, totalRange;
         List<string> staffModuleClass = new List<string>();
         List<StudentGrade> sgList = new List<StudentGrade>();
 
         UserCredential creds;
 
-        public IActionResult Chart()
+        public IActionResult StudentChart()
         {
-            ShowStudentList("FSD_T01", "S7:V12");
+            //ID and Name of current user
+            loggedStudentName = HttpContext.Session.GetString("LoggedStudentName");
+            loggedStudentId = HttpContext.Session.GetString("LoggedStudentID");
+            ViewData["StudentName"] = loggedStudentName;
+            ViewData["StudentID"] = loggedStudentId;
+
+
+            //For purpose sake, we will select the entire spreadsheet as the range
+            ShowStudentList("FSD_T01", "A7:V12");
 
             using (var stream = new FileStream("cred.json", FileMode.Open, FileAccess.Read))
             {
@@ -108,12 +116,14 @@ namespace P2EyeRIS.Controllers
                 List<StudentGrade> studentGradeList = new List<StudentGrade>();
                 foreach (var row in values)
                 {
-                    StudentGrade s = new StudentGrade();
-                    s.P = row[0].ToString();
-                    s.L = row[1].ToString();
-                    s.E = row[2].ToString();
-                    s.U = row[3].ToString();
-                    studentGradeList.Add(s);
+                    if (row[0].ToString() == loggedStudentId){
+                        StudentGrade s = new StudentGrade();
+                        s.P = row[18].ToString();
+                        s.L = row[19].ToString();
+                        s.E = row[20].ToString();
+                        s.U = row[21].ToString();
+                        studentGradeList.Add(s);
+                    }
                 }
                 return studentGradeList;
             }

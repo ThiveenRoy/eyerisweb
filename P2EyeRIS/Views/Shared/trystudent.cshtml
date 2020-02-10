@@ -1,0 +1,43 @@
+﻿@model IEnumerable<P2EyeRIS.Models.Student>
+@{
+    var tempModuleList = (List<string>)ViewData["ModuleList"];
+}
+
+<table class="table" id="masterTable" >
+    <div id="container">
+        <table class="table table bordered table-striped" id="testTable">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Id)</th>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                </tr>
+            </thead>
+            <div id="test">
+            @if (Model.ToList().Count > 0)
+            {
+                <tbody id="demo">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td><a asp-action="Profile" asp-controller="Student" asp-route-id="@item.Id"><u>@item.Name</u></a></td>
+                        </tr>
+                    }
+                </tbody>
+            }
+            </div>
+        </table>
+    </div>
+</table>
+
+<!-- SCRIPTS -->
+<!-- JQuery -->
+<script type="text/javascript" src="~/js/jquery-3.3.1.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="~/js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="~/js/mdb.min.js"></script>
+
+
