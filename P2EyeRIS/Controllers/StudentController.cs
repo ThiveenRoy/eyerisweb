@@ -38,7 +38,7 @@ namespace P2EyeRIS.Controllers
 
 
             //For purpose sake, we will select the entire spreadsheet as the range
-            ShowStudentList("FSD_T01", "A7:V12");
+            ShowStudentList("FSD_T01", "A7:V14");
 
             using (var stream = new FileStream("cred.json", FileMode.Open, FileAccess.Read))
             {
